@@ -132,3 +132,7 @@ dist
 .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/node,dotnetcore
+
+.vs/
+.vscode/
+backend/obj/

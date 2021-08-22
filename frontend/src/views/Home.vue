@@ -1,18 +1,43 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <Navbar @open="showModal" />
+
+    <AboutModal v-show="isModalVisible" @close="closeModal" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
+import Navbar from "../components/Navbar.vue"; // @ is an alias to /src
+import AboutModal from "../components/AboutModal.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
-    HelloWorld,
+    Navbar,
+    AboutModal,
+  },
+  data() {
+    return {
+      isModalVisible: false,
+    };
+  },
+  methods: {
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
   },
 });
 </script>
+
+<style lang="scss">
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #171a1c;
+}
+</style>

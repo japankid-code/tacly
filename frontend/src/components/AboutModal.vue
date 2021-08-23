@@ -1,28 +1,3 @@
-<template>
-  <div class="modal-backdrop">
-    <div class="modal">
-      <header class="modal-header">
-        <slot name="header">About Tacly</slot>
-        <button type="button" class="btn-close" @click="close">x</button>
-      </header>
-
-      <section class="modal-body">
-        <slot name="body">
-          <p>Tacly is a multiplayer competitive tic tac toe game.</p>
-          <p>
-            <a href="https://github.com/japankid-code/tacly">learn more.</a>
-          </p></slot
-        >
-      </section>
-
-      <footer class="modal-footer">
-        <slot name="footer"> </slot>
-        <button type="button" class="btn-green" @click="close">close</button>
-      </footer>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: "Modal",
@@ -33,6 +8,36 @@ export default {
   },
 };
 </script>
+
+<template>
+  <transition name="modal-fade">
+    <div class="modal-backdrop">
+      <div class="modal">
+        <header class="modal-header">
+          <slot name="header">About Tacly</slot>
+          <button type="button" class="btn-close" @click="close">x</button>
+        </header>
+
+        <section class="modal-body">
+          <slot name="body">
+            <p>
+              Tacly is a multiplayer competitive tic tac toe game. Add your
+              friends and play tic tac toe!!
+            </p>
+            <p>
+              <a href="https://github.com/japankid-code/tacly">learn more.</a>
+            </p>
+          </slot>
+        </section>
+
+        <footer class="modal-footer">
+          <slot name="footer"> </slot>
+          <button type="button" class="btn-blue" @click="close">close</button>
+        </footer>
+      </div>
+    </div>
+  </transition>
+</template>
 
 <style scoped lang="scss">
 .modal-backdrop {
@@ -48,8 +53,9 @@ export default {
 }
 
 .modal {
-  background: #ffffff;
+  background: #f9f9f9;
   box-shadow: 2px 2px 20px 1px;
+  border-radius: 3px;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
@@ -64,7 +70,7 @@ export default {
 .modal-header {
   position: relative;
   border-bottom: 1px solid #eeeeee;
-  color: #4aae9b;
+  color: #171a1c;
   justify-content: space-between;
 }
 
@@ -76,8 +82,9 @@ export default {
 
 .modal-body {
   position: relative;
-  padding: 20px 10px;
+  padding: 20px 25px;
   display: flex;
+  max-width: 320px;
   flex-direction: column;
   align-items: center;
   a {
@@ -96,14 +103,29 @@ export default {
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: #4aae9b;
+  color: #61c0ff;
   background: transparent;
+  cursor: pointer;
 }
 
-.btn-green {
+.btn-blue {
   color: white;
-  background: #4aae9b;
-  border: 1px solid #4aae9b;
-  border-radius: 2px;
+  background: #61c0ff;
+  border: 1px solid #61c0ff;
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  max-width: min-content;
+  align-self: center;
+  cursor: pointer;
+}
+
+.modal-fade-enter,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 </style>

@@ -1,11 +1,3 @@
-<template>
-  <div class="home">
-    <Navbar @open="showModal" />
-
-    <AboutModal v-show="isModalVisible" @close="closeModal" />
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navbar from "../components/Navbar.vue"; // @ is an alias to /src
@@ -32,6 +24,14 @@ export default defineComponent({
   },
 });
 </script>
+
+<template>
+  <div class="home">
+    <Navbar @open="showModal" />
+
+    <AboutModal v-show="isModalVisible" @close="closeModal" />
+  </div>
+</template>
 
 <style lang="scss">
 .home {

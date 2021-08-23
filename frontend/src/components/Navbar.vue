@@ -1,16 +1,3 @@
-<template>
-  <div class="navbar">
-    <router-link to="/"><h1>tacly</h1></router-link>
-    <nav id="nav">
-      <router-link to="/">Home</router-link> |
-      <a type="button" class="about-btn" @click="open">About</a> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/signup">Signup</router-link>
-      <router-view />
-    </nav>
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 
@@ -24,6 +11,19 @@ export default defineComponent({
 });
 </script>
 
+<template>
+  <div class="navbar">
+    <router-link to="/"><h1>tacly</h1></router-link>
+    <nav id="nav">
+      <router-link to="/">Home</router-link> |
+      <a type="button" class="about-btn" @click="open">About</a> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/signup">Signup</router-link>
+      <router-view />
+    </nav>
+  </div>
+</template>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .navbar {
@@ -31,6 +31,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 10;
   h1 {
     margin: 0 0 0 0;
     padding: 1.5rem;

@@ -1,3 +1,16 @@
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "App",
+  components: {},
+  props: {},
+  data() {
+    return {};
+  },
+});
+</script>
+
 <template>
   <div id="app-vue">
     <router-view />

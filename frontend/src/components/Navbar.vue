@@ -17,8 +17,8 @@ export default defineComponent({
     <nav id="nav">
       <router-link to="/">Home</router-link> |
       <a type="button" class="about-btn" @click="open">About</a> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/signup">Signup</router-link>
+      <router-link to="/login">Log in</router-link> |
+      <router-link to="/signup">Sign up</router-link>
       <router-view />
     </nav>
   </div>

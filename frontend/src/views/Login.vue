@@ -2,11 +2,13 @@
 import { defineComponent } from "vue";
 
 import UserForm from "../components/UserForm.vue";
+import Button from "../components/Button.vue";
 
 export default defineComponent({
   name: "Login",
   components: {
     UserForm,
+    Button,
   },
   props: {},
   data() {
@@ -31,6 +33,7 @@ export default defineComponent({
           <span>password:</span> <input class="input" />
         </div>
       </template>
+      <template v-slot:button><Button :btn-text="text"></Button></template>
     </UserForm>
   </div>
 </template>

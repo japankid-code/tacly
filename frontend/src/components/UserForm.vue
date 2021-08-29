@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -34,25 +34,7 @@ export default defineComponent({
         <slot name="option3"></slot>
         <slot name="option4"></slot>
         <slot name="option5"></slot>
-
-        <button
-          type="button"
-          class="btn-blue"
-          @click="
-            () => {
-              switch (btnText) {
-                case 'log in':
-                  return login();
-                  break;
-                case 'sign up':
-                  return signup();
-                  break;
-              }
-            }
-          "
-        >
-          {{ btnText }}
-        </button>
+        <slot name="button"></slot>
       </form>
     </div>
   </transition>

@@ -90,6 +90,21 @@ export default defineComponent({
 </template>
 
 <style lang="scss">
+.form-option {
+  color: var(--dark-eerie-black);
+  width: 18rem;
+  padding: 0 0 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-control {
+  padding: 0 0.5rem;
+  border: 1px solid #d9d9d9;
+  width: 9rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+}
 .create-user {
   margin: 20px 0 0 0;
   align-self: center;

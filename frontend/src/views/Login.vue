@@ -71,7 +71,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #171a1c;
+  background-color: var(--dark-eerie-black);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,14 +79,11 @@ export default defineComponent({
   h1 {
     margin: 0 0 0 0;
     padding: 1.5rem;
-    color: #f9f9f9;
-  }
-  a {
-    color: #42b983;
-    text-decoration: none;
+    color: var(--dark-cultured-white);
   }
 }
 .form-option {
+  color: var(--dark-eerie-black);
   width: 16rem;
   padding: 0 0 2rem 0;
   display: flex;

@@ -93,7 +93,7 @@ export default defineComponent({
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #171a1c;
+  background-color: var(--dark-eerie-black);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,7 +101,7 @@ export default defineComponent({
   h1 {
     margin: 0 0 0 0;
     padding: 1.5rem;
-    color: #f9f9f9;
+    color: var(--dark-cultured-white);
   }
   a {
     color: #42b983;
@@ -109,14 +109,12 @@ export default defineComponent({
   }
 }
 .form-option {
+  color: var(--dark-eerie-black);
   width: 18rem;
   padding: 0 0 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  span {
-    color: #171a1c !important;
-  }
 }
 .form-control {
   padding: 0 0.5rem;

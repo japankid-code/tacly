@@ -42,7 +42,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .card {
-  background: #f9f9f9;
+  background: var(--dark-cultured-white);
   filter: drop-shadow(0px 0px 7px rgba(255, 252, 240, 0.5));
   overflow-x: auto;
   display: flex;
@@ -58,12 +58,12 @@ export default defineComponent({
 }
 
 .btn-blue {
-  color: #171a1c;
+  color: var(--dark-eerie-black);
   font-weight: bolder;
   font-size: 1.2rem;
   align-self: center;
-  background: #61c0ff;
-  border: 1px solid #61c0ff;
+  background: var(--dark-maya-blue);
+  border: 1px solid var(--dark-maya-blue);
   border-radius: 2px;
   padding: 0.5rem 1rem;
   margin: 0 0 0 0;

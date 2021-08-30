@@ -27,22 +27,23 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .navbar {
-  background-color: #61c0ff;
+  background-color: var(--dark-maya-blue);
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+  color: var(--dark-eerie-black);
   h1 {
     margin: 0 0 0 0;
     padding: 1.5rem;
-    color: #2c3e50;
+    color: var(--dark-eerie-black);
   }
   a {
-    color: #42b983;
+    color: var(--dark-eerie-black);
     text-decoration: none;
   }
   .about-btn {
-    color: #2c3e50;
+    color: var(--dark-eerie-black);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -51,9 +52,10 @@ export default defineComponent({
 
 #nav {
   padding: 20px;
+  color: var(--dark-eerie-black);
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: var(--dark-eerie-black);
 
     &.router-link-exact-active {
       color: #2d7e59;

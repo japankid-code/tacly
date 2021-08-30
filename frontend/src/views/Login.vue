@@ -87,13 +87,13 @@ export default defineComponent({
   }
 }
 .form-option {
-  width: 15rem;
+  width: 16rem;
   padding: 0 0 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.input {
+.form-control {
   padding: 0.15rem 0.5rem;
   border: 1px solid #d9d9d9;
   width: 9rem;

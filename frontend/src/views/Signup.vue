@@ -14,7 +14,29 @@ export default defineComponent({
   data() {
     return {
       text: "sign up",
+      username: "",
+      email: "",
+      password: "",
+      confirmPass: "",
     };
+  },
+  methods: {
+    createUser() {
+      const payload = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      };
+      console.log(payload);
+      this.$emit("createUser", payload);
+      this.clearForm();
+    },
+    clearForm() {
+      this.username = "";
+      this.email = "";
+      this.password = "";
+      this.confirmPass = "";
+    },
   },
 });
 </script>
@@ -25,25 +47,41 @@ export default defineComponent({
     <UserForm>
       <template v-slot:option1>
         <div class="form-option">
-          <span>username:</span> <input class="input" />
+          <span>username:</span>
+          <input class="form-control" v-model="username" name="username" />
         </div>
       </template>
       <template v-slot:option2>
         <div class="form-option">
-          <span>email:</span> <input class="input" />
+          <span>email:</span>
+          <input class="form-control" v-model="email" name="email" />
         </div>
       </template>
       <template v-slot:option3>
         <div class="form-option">
-          <span>password:</span> <input class="input" />
+          <span>password:</span>
+          <input
+            class="form-control"
+            type="password"
+            v-model="password"
+            name="password"
+          />
         </div>
       </template>
       <template v-slot:option4>
         <div class="form-option">
-          <span>confirm pass:</span> <input class="input" />
+          <span>confirm pass:</span>
+          <input
+            class="form-control"
+            type="password"
+            v-model="confirmPass"
+            name="confirmpass"
+          />
         </div>
       </template>
-      <template v-slot:button><Button :btn-text="text"></Button></template>
+      <template v-slot:button>
+        <Button :btn-text="text" @click="createUser()"></Button>
+      </template>
     </UserForm>
   </div>
 </template>
@@ -77,7 +115,7 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
 }
-.input {
+.form-control {
   padding: 0 0.5rem;
   border: 1px solid #d9d9d9;
   width: 9rem;

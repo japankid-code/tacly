@@ -14,7 +14,24 @@ export default defineComponent({
   data() {
     return {
       text: "log in",
+      username: "",
+      password: "",
     };
+  },
+  methods: {
+    createUser() {
+      const payload = {
+        username: this.username,
+        password: this.password,
+      };
+      console.log(payload);
+      this.$emit("loginUser", payload);
+      this.clearForm();
+    },
+    clearForm() {
+      this.username = "";
+      this.password = "";
+    },
   },
 });
 </script>
@@ -25,15 +42,24 @@ export default defineComponent({
     <UserForm :btn-text="text">
       <template v-slot:option1>
         <div class="form-option">
-          <span>username:</span> <input class="input" />
+          <span>username:</span>
+          <input class="form-control" v-model="username" name="username" />
         </div>
       </template>
       <template v-slot:option2>
         <div class="form-option">
-          <span>password:</span> <input class="input" />
+          <span>password:</span>
+          <input
+            class="form-control"
+            type="password"
+            v-model="password"
+            name="password"
+          />
         </div>
       </template>
-      <template v-slot:button><Button :btn-text="text"></Button></template>
+      <template v-slot:button>
+        <Button :btn-text="text" @click="createUser()"></Button>
+      </template>
     </UserForm>
   </div>
 </template>

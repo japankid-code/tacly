@@ -114,6 +114,9 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  span {
+    color: #171a1c !important;
+  }
 }
 .form-control {
   padding: 0 0.5rem;

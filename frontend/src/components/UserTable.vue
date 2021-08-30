@@ -6,7 +6,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container user-table">
     <h2>Users</h2>
     <table class="table table-bordered">
       <thead>
@@ -28,3 +28,10 @@ export default {
     </table>
   </div>
 </template>
+
+<style lang="scss">
+.user-table {
+  margin: 20px 0 0 0;
+  align-self: center;
+}
+</style>

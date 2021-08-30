@@ -1,83 +1,97 @@
 <script>
-export default {
+import { defineComponent } from "vue";
+
+import UserForm from "../components/UserForm.vue";
+import Button from "../components/Button.vue";
+
+export default defineComponent({
   name: "CreateUser",
+  components: {
+    UserForm,
+    Button,
+  },
   data() {
     return {
-      firstName: "",
-      lastName: "",
+      text: "sign up",
+      username: "",
       email: "",
+      password: "",
+      confirmPass: "",
     };
   },
   methods: {
     createUser() {
-      console.log(this.firstName);
       const payload = {
-        firstName: this.firstName,
-        lastName: this.lastName,
+        username: this.username,
         email: this.email,
+        password: this.password,
       };
+      console.log(payload);
       this.$emit("createUser", payload);
       this.clearForm();
     },
     clearForm() {
-      this.firstName = "";
-      this.lastName = "";
+      this.username = "";
       this.email = "";
+      this.password = "";
+      this.confirmPass = "";
     },
   },
-};
+});
 </script>
 
 <template>
-  <div class="container">
+  <div class="container create-user">
     <div class="row">
       <div class="col-md-7 mrgnbtm">
         <h2>Create User</h2>
-        <form>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label htmlFor="exampleInputEmail1">First Name</label>
+        <UserForm>
+          <template v-slot:option1>
+            <div class="form-option">
+              <span>username:</span>
+              <input class="form-control" v-model="username" name="username" />
+            </div>
+          </template>
+          <template v-slot:option2>
+            <div class="form-option">
+              <span>email:</span>
+              <input class="form-control" v-model="email" name="email" />
+            </div>
+          </template>
+          <template v-slot:option3>
+            <div class="form-option">
+              <span>password:</span>
               <input
-                type="text"
                 class="form-control"
-                v-model="firstName"
-                name="firstname"
-                id="firstname"
-                aria-describedby="emailHelp"
-                placeholder="First Name"
+                type="password"
+                v-model="password"
+                name="password"
               />
             </div>
-            <div class="form-group col-md-6">
-              <label htmlFor="exampleInputPassword1">Last Name</label>
+          </template>
+          <template v-slot:option4>
+            <div class="form-option">
+              <span>confirm pass:</span>
               <input
-                type="text"
                 class="form-control"
-                v-model="lastName"
-                name="lastname"
-                id="lastname"
-                placeholder="Last Name"
+                type="password"
+                v-model="confirmPass"
+                name="confirmpass"
               />
             </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label htmlFor="exampleInputEmail1">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="email"
-                name="email"
-                id="email"
-                aria-describedby="emailHelp"
-                placeholder="Email"
-              />
-            </div>
-          </div>
-          <button type="button" @click="createUser()" class="btn btn-danger">
-            Create
-          </button>
-        </form>
+          </template>
+          <template v-slot:button>
+            <Button :btn-text="text" @click="createUser()"></Button>
+          </template>
+        </UserForm>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.create-user {
+  margin: 20px 0 0 0;
+  align-self: center;
+}
+</style>

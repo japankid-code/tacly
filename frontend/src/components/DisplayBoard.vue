@@ -1,5 +1,7 @@
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "DisplayBoard",
   props: ["numberOfUsers"],
   methods: {
@@ -7,7 +9,7 @@ export default {
       this.$emit("getAllUsers");
     },
   },
-};
+});
 </script>
 
 <template>
@@ -23,3 +25,10 @@ export default {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.display-board {
+  margin: 20px 0 0 0;
+  align-self: center;
+}
+</style>

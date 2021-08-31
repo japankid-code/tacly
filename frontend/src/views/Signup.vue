@@ -48,13 +48,23 @@ export default defineComponent({
       <template v-slot:option1>
         <div class="form-option">
           <span>username:</span>
-          <input class="form-control" v-model="username" name="username" />
+          <input
+            class="form-control"
+            v-model="username"
+            name="username"
+            autocomplete="on"
+          />
         </div>
       </template>
       <template v-slot:option2>
         <div class="form-option">
           <span>email:</span>
-          <input class="form-control" v-model="email" name="email" />
+          <input
+            class="form-control"
+            v-model="email"
+            name="email"
+            autocomplete="on"
+          />
         </div>
       </template>
       <template v-slot:option3>
@@ -65,6 +75,7 @@ export default defineComponent({
             type="password"
             v-model="password"
             name="password"
+            autocomplete="on"
           />
         </div>
       </template>
@@ -76,6 +87,7 @@ export default defineComponent({
             type="password"
             v-model="confirmPass"
             name="confirmpass"
+            autocomplete="on"
           />
         </div>
       </template>

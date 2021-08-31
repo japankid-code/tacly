@@ -6,6 +6,8 @@ import CreateUser from "../components/CreateUser.vue";
 import DisplayBoard from "../components/DisplayBoard.vue";
 import UserTable from "../components/UserTable.vue";
 
+import { getAllUsers, createUser } from "../services/UserService";
+
 export default defineComponent({
   name: "Home",
   components: {
@@ -18,6 +20,8 @@ export default defineComponent({
   data() {
     return {
       isModalVisible: false,
+      users: [],
+      numberOfUsers: 0,
     };
   },
   methods: {
@@ -27,6 +31,15 @@ export default defineComponent({
     closeModal() {
       this.isModalVisible = false;
     },
+    async getUsers() {
+      const users = await getAllUsers();
+      this.users = users;
+      this.numberOfUsers = this.users.length;
+    },
+    userCreate(data: any) {
+      createUser(data);
+      this.getUsers();
+    },
   },
 });
 </script>
@@ -35,9 +48,9 @@ export default defineComponent({
   <div class="home">
     <Navbar @open="showModal" />
     <AboutModal v-show="isModalVisible" @close="closeModal" />
-    <CreateUser></CreateUser>
-    <DisplayBoard></DisplayBoard>
-    <UserTable></UserTable>
+    <CreateUser @createUser="userCreate($event)" />
+    <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getUsers()" />
+    <UserTable v-if="users.length > 0" />
   </div>
 </template>
 

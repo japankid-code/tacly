@@ -2,17 +2,36 @@
 import { defineComponent } from "vue";
 
 import UserForm from "../components/UserForm.vue";
+import Button from "../components/Button.vue";
 
 export default defineComponent({
   name: "Login",
   components: {
     UserForm,
+    Button,
   },
   props: {},
   data() {
     return {
       text: "log in",
+      username: "",
+      password: "",
     };
+  },
+  methods: {
+    createUser() {
+      const payload = {
+        username: this.username,
+        password: this.password,
+      };
+      console.log(payload);
+      this.$emit("loginUser", payload);
+      this.clearForm();
+    },
+    clearForm() {
+      this.username = "";
+      this.password = "";
+    },
   },
 });
 </script>
@@ -23,13 +42,23 @@ export default defineComponent({
     <UserForm :btn-text="text">
       <template v-slot:option1>
         <div class="form-option">
-          <span>username:</span> <input class="input" />
+          <span>username:</span>
+          <input class="form-control" v-model="username" name="username" />
         </div>
       </template>
       <template v-slot:option2>
         <div class="form-option">
-          <span>password:</span> <input class="input" />
+          <span>password:</span>
+          <input
+            class="form-control"
+            type="password"
+            v-model="password"
+            name="password"
+          />
         </div>
+      </template>
+      <template v-slot:button>
+        <Button :btn-text="text" @click="createUser()"></Button>
       </template>
     </UserForm>
   </div>
@@ -42,7 +71,7 @@ export default defineComponent({
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #171a1c;
+  background-color: var(--dark-eerie-black);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,21 +79,18 @@ export default defineComponent({
   h1 {
     margin: 0 0 0 0;
     padding: 1.5rem;
-    color: #f9f9f9;
-  }
-  a {
-    color: #42b983;
-    text-decoration: none;
+    color: var(--dark-cultured-white);
   }
 }
 .form-option {
-  width: 15rem;
+  color: var(--dark-eerie-black);
+  width: 16rem;
   padding: 0 0 2rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.input {
+.form-control {
   padding: 0.15rem 0.5rem;
   border: 1px solid #d9d9d9;
   width: 9rem;

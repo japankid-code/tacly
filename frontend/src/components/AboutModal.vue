@@ -50,10 +50,12 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .modal {
-  background: #f9f9f9;
+  background: var(--dark-cultured-white);
+  color: var(--dark-eerie-black);
   box-shadow: 2px 2px 20px 1px;
   border-radius: 3px;
   overflow-x: auto;
@@ -69,13 +71,13 @@ export default {
 
 .modal-header {
   position: relative;
-  border-bottom: 1px solid #eeeeee;
-  color: #171a1c;
+  border-bottom: 1px solid var(--dark-alice-blue);
+  color: var(--dark-eerie-black);
   justify-content: space-between;
 }
 
 .modal-footer {
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid var(--dark-alice-blue);
   flex-direction: column;
   justify-content: flex-end;
 }
@@ -103,15 +105,15 @@ export default {
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
-  color: #61c0ff;
+  color: var(--dark-maya-blue);
   background: transparent;
   cursor: pointer;
 }
 
 .btn-blue {
   color: white;
-  background: #61c0ff;
-  border: 1px solid #61c0ff;
+  background: var(--dark-maya-blue);
+  border: 1px solid var(--dark-maya-blue);
   border-radius: 4px;
   padding: 0.35rem 0.75rem;
   max-width: min-content;

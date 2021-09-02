@@ -18,14 +18,25 @@ export default defineComponent({
 </template>
 
 <style lang="scss">
+* {
+  --dark-eerie-black: #171a1c;
+  --dark-maya-blue: #61c0ff;
+  --dark-alice-blue: #dcf2ff;
+  --dark-cultured-white: #f9f9f9;
+  --dark-light-salmon: #ffa978;
+}
 body {
   margin: 0;
+}
+a {
+  text-decoration: none;
 }
 #app-vue {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--dark-cultured-white);
+  background-color: var(--dark-eerie-black);
   width: 100vw;
   height: 100vh;
   margin: 0;

@@ -36,12 +36,20 @@ namespace backendv3
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")
                 ));
+            services.AddSpaStaticFiles(configuration: options => { options.RootPath = "wwwroot"; });
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddSwaggerGen(c =>
+            services.AddCors(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "backendv3", Version = "v1" });
+                options.AddPolicy("VueCorsPolicy", builder =>
+                {
+                    builder
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithOrigins("https://localhost:5001");
+                });
             });
 
         }
@@ -52,9 +60,8 @@ namespace backendv3
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "backendv3 v1"));
             }
+            app.UseCors("VueCorsPolicy");
 
             app.UseHttpsRedirection();
 
@@ -65,6 +72,15 @@ namespace backendv3
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpaStaticFiles();
+            app.UseSpa(configuration: builder =>
+            {
+                if (env.IsDevelopment())
+                {
+                    builder.UseProxyToSpaDevelopmentServer("http://localhost:8080");
+                }
             });
         }
     }

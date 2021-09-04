@@ -15,6 +15,5 @@ namespace backendv3.Models
             UserName = create.UserName;
             Email = create.Email;
         }
-        // override public string Id { get; set; }
     }
 }

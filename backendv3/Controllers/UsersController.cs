@@ -27,7 +27,6 @@ namespace backendv3.Controllers
         public async Task<ActionResult<List<User>>> Get()
         {
             return await _dbContext.User.ToListAsync();
-            // return Ok(new { data = "hello world" });
         }
 
         [HttpGet("{id}")]
@@ -39,11 +38,8 @@ namespace backendv3.Controllers
         [HttpPost]
         public async Task Post(CreateUserRequest model)
         {
-            var User = new User(model);
-            var result = await _userManager.CreateAsync(User, model.Password);
-
-            // await _dbContext.AddAsync(model);
-            // await _dbContext.SaveChangesAsync();
+            var user = new User(model);
+            var result = await _userManager.CreateAsync(user, model.Password);
         }
 
         [HttpPut("{id}")]

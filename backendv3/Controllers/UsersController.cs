@@ -55,5 +55,20 @@ namespace backendv3.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteUser(string id)
+        {
+            var todoItem = await _dbContext.User.FindAsync(id);
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.User.Remove(todoItem);
+            await _dbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }

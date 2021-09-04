@@ -11,27 +11,31 @@ export default {
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>User Id</th>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Email</th>
+          <th>user index</th>
+          <th>username</th>
+          <th>email</th>
+          <th>password</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in users" :key="index">
           <td>{{ index + 1 }}</td>
-          <td>{{ item.firstName }}</td>
-          <td>{{ item.lastName }}</td>
+          <td>{{ item.userName }}</td>
           <td>{{ item.email }}</td>
+          <td>not telling</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .user-table {
   margin: 20px 0 0 0;
   align-self: center;
+}
+th,
+td {
+  color: var(--dark-cultured-white);
 }
 </style>

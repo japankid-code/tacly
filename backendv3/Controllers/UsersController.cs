@@ -1,5 +1,6 @@
 ﻿using backendv3.Data;
 using backendv3.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,10 +14,12 @@ namespace backendv3.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _dbContext;
 
-        public UsersController(ApplicationDbContext dbContext)
+        public UsersController(ApplicationDbContext dbContext, UserManager<User> userManager)
         {
+            _userManager = userManager;
             _dbContext = dbContext;
         }
 
@@ -34,10 +37,13 @@ namespace backendv3.Controllers
         }
 
         [HttpPost]
-        public async Task Post(User model)
+        public async Task Post(CreateUserRequest model)
         {
-            await _dbContext.AddAsync(model);
-            await _dbContext.SaveChangesAsync();
+            var User = new User(model);
+            var result = await _userManager.CreateAsync(User, model.Password);
+
+            // await _dbContext.AddAsync(model);
+            // await _dbContext.SaveChangesAsync();
         }
 
         [HttpPut("{id}")]
@@ -59,13 +65,13 @@ namespace backendv3.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(string id)
         {
-            var todoItem = await _dbContext.User.FindAsync(id);
-            if (todoItem == null)
+            var user = await _dbContext.User.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _dbContext.User.Remove(todoItem);
+            _dbContext.User.Remove(user);
             await _dbContext.SaveChangesAsync();
 
             return NoContent();

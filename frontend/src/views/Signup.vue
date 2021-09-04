@@ -3,6 +3,7 @@ import { defineComponent } from "vue";
 
 import UserForm from "../components/UserForm.vue";
 import Button from "../components/Button.vue";
+import { createUser } from "../services/UserService";
 
 export default defineComponent({
   name: "Signup",
@@ -10,6 +11,7 @@ export default defineComponent({
     UserForm,
     Button,
   },
+
   props: {},
   data() {
     return {
@@ -21,14 +23,13 @@ export default defineComponent({
     };
   },
   methods: {
-    createUser() {
+    createNewUser() {
       const payload = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
+        UserName: this.username,
+        Email: this.email,
+        Password: this.password,
       };
-      console.log(payload);
-      this.$emit("createUser", payload);
+      createUser(payload);
       this.clearForm();
     },
     clearForm() {
@@ -47,40 +48,52 @@ export default defineComponent({
     <UserForm>
       <template v-slot:option1>
         <div class="form-option">
-          <span>username:</span>
-          <input class="form-control" v-model="username" name="username" />
+          <label>username:</label>
+          <input
+            class="form-control"
+            v-model="username"
+            name="username"
+            autocomplete="on"
+          />
         </div>
       </template>
       <template v-slot:option2>
         <div class="form-option">
-          <span>email:</span>
-          <input class="form-control" v-model="email" name="email" />
+          <label>email:</label>
+          <input
+            class="form-control"
+            v-model="email"
+            name="email"
+            autocomplete="on"
+          />
         </div>
       </template>
       <template v-slot:option3>
         <div class="form-option">
-          <span>password:</span>
+          <label>password:</label>
           <input
             class="form-control"
             type="password"
             v-model="password"
             name="password"
+            autocomplete="on"
           />
         </div>
       </template>
       <template v-slot:option4>
         <div class="form-option">
-          <span>confirm pass:</span>
+          <label>confirm pass:</label>
           <input
             class="form-control"
             type="password"
             v-model="confirmPass"
             name="confirmpass"
+            autocomplete="on"
           />
         </div>
       </template>
       <template v-slot:button>
-        <Button :btn-text="text" @click="createUser()"></Button>
+        <Button :btn-text="text" @click="createNewUser()"></Button>
       </template>
     </UserForm>
   </div>

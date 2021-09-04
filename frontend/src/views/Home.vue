@@ -33,6 +33,7 @@ export default defineComponent({
     },
     async getUsers() {
       const users = await getAllUsers();
+      console.log("users: ", users);
       this.users = users;
       this.numberOfUsers = this.users.length;
     },
@@ -50,7 +51,7 @@ export default defineComponent({
     <AboutModal v-show="isModalVisible" @close="closeModal" />
     <CreateUser @createUser="userCreate($event)" />
     <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getUsers()" />
-    <UserTable v-if="users.length > 0" />
+    <UserTable v-if="users.length > 0" :users="users" />
   </div>
 </template>
 

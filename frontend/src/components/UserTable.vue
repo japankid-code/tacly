@@ -20,9 +20,9 @@ export default {
       <tbody>
         <tr v-for="(item, index) in users" :key="index">
           <td>{{ index + 1 }}</td>
-          <td>{{ item.username }}</td>
+          <td>{{ item.userName }}</td>
           <td>{{ item.email }}</td>
-          <td>{{ item.password }}</td>
+          <td>not telling</td>
         </tr>
       </tbody>
     </table>

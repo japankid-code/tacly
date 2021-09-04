@@ -1,11 +1,13 @@
 export async function getAllUsers() {
-  console.log("getAllUsers");
-  const response = await fetch("/api/users");
+  const response = await fetch("/api/users", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  console.log("getAllUsers", response.body);
   return await response.json();
 }
 
 export async function createUser(data: any) {
-  console.log("creating user...", data);
   const response = await fetch(`/api/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

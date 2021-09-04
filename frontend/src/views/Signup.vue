@@ -29,7 +29,6 @@ export default defineComponent({
         Email: this.email,
         Password: this.password,
       };
-      console.log(payload);
       createUser(payload);
       this.clearForm();
     },

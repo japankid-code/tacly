@@ -22,9 +22,9 @@ export default defineComponent({
   methods: {
     createUser() {
       const payload = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
+        UserName: this.username,
+        Email: this.email,
+        Password: this.password,
       };
       this.$emit("createUser", payload);
       this.clearForm();

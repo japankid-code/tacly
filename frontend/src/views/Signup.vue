@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 import UserForm from "../components/UserForm.vue";
 import Button from "../components/Button.vue";
 import { createUser } from "../services/UserService";
+import authService from "../services/AuthService";
 
 export default defineComponent({
   name: "Signup",
@@ -23,13 +24,14 @@ export default defineComponent({
     };
   },
   methods: {
-    createNewUser() {
+    async createNewUser() {
       const payload = {
         UserName: this.username,
         Email: this.email,
         Password: this.password,
       };
-      createUser(payload);
+      let newUser = await createUser(payload);
+      authService.login(newUser.token);
       this.clearForm();
     },
     clearForm() {

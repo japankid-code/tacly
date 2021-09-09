@@ -3,6 +3,7 @@ using backendv3.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace backendv3.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IConfiguration _configuration;
 
-        public UsersController(ApplicationDbContext dbContext, UserManager<User> userManager)
+        public UsersController(ApplicationDbContext dbContext, UserManager<User> userManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _dbContext = dbContext;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -36,10 +39,13 @@ namespace backendv3.Controllers
         }
 
         [HttpPost]
-        public async Task Post(CreateUserRequest model)
+        public async Task<IActionResult> Post(CreateUserRequest model)
         {
             var user = new User(model);
             var result = await _userManager.CreateAsync(user, model.Password);
+            LoginUserRequest login = model;
+            var request = new UserAuthController(_userManager, _configuration);
+            return await request.Login(login);
         }
 
         [HttpPut("{id}")]

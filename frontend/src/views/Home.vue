@@ -7,6 +7,7 @@ import DisplayBoard from "../components/DisplayBoard.vue";
 import UserTable from "../components/UserTable.vue";
 
 import { getAllUsers, createUser } from "../services/UserService";
+import authService from "../services/AuthService";
 
 export default defineComponent({
   name: "Home",
@@ -33,13 +34,16 @@ export default defineComponent({
     },
     async getUsers() {
       const users = await getAllUsers();
-      console.log("users: ", users);
       this.users = users;
       this.numberOfUsers = this.users.length;
     },
     userCreate(data: any) {
       createUser(data);
       this.getUsers();
+    },
+    loggedIn(): boolean {
+      const loggedIn = authService.loggedIn();
+      return loggedIn;
     },
   },
 });
@@ -49,9 +53,11 @@ export default defineComponent({
   <div class="home">
     <Navbar @open="showModal" />
     <AboutModal v-show="isModalVisible" @close="closeModal" />
-    <CreateUser @createUser="userCreate($event)" />
-    <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getUsers()" />
-    <UserTable v-if="users.length > 0" :users="users" />
+    <template v-if="this.loggedIn()">
+      <CreateUser @createUser="userCreate($event)" />
+      <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getUsers()" />
+      <UserTable v-show="users.length > 0" :users="users" />
+    </template>
   </div>
 </template>
 

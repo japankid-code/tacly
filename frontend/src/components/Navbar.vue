@@ -1,11 +1,19 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import authService from "../services/AuthService";
 
 export default defineComponent({
   name: "Navbar",
   methods: {
     open() {
       this.$emit("open");
+    },
+    loggedIn(): boolean {
+      const loggedIn = authService.loggedIn();
+      return loggedIn;
+    },
+    logout() {
+      authService.logout();
     },
   },
 });
@@ -15,11 +23,13 @@ export default defineComponent({
   <div class="navbar">
     <router-link to="/"><h1>tacly</h1></router-link>
     <nav id="nav">
-      <router-link to="/">Home</router-link> |
-      <a type="button" class="about-btn" @click="open">About</a> |
-      <router-link to="/login">Log in</router-link> |
-      <router-link to="/signup">Sign up</router-link>
-      <router-view />
+      <router-link to="/">Home |</router-link>
+      <a type="button" class="about-btn" @click="open">About |</a>
+      <router-link v-if="!this.loggedIn()" to="/login">Log in |</router-link>
+      <router-link v-if="!this.loggedIn()" to="/signup">Sign up</router-link>
+      <router-link v-if="this.loggedIn()" to="/signup" @click="logout()"
+        >Log out</router-link
+      >
     </nav>
   </div>
 </template>
@@ -33,6 +43,7 @@ export default defineComponent({
   align-items: center;
   z-index: 10;
   color: var(--dark-eerie-black);
+  max-width: 100vw;
   h1 {
     margin: 0 0 0 0;
     padding: 1.5rem;
@@ -48,17 +59,13 @@ export default defineComponent({
     border: none;
     cursor: pointer;
   }
-}
-
-#nav {
-  padding: 20px;
-  color: var(--dark-eerie-black);
-  a {
-    font-weight: bold;
+  #nav {
+    padding: 0 1rem 0 0;
     color: var(--dark-eerie-black);
-
-    &.router-link-exact-active {
-      color: #2d7e59;
+    a {
+      padding: 0.25rem;
+      font-weight: bold;
+      color: var(--dark-eerie-black);
     }
   }
 }

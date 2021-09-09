@@ -3,6 +3,8 @@ import { defineComponent } from "vue";
 
 import UserForm from "../components/UserForm.vue";
 import Button from "../components/Button.vue";
+import authService from "../services/AuthService";
+import { loginUser } from "../services/UserService";
 
 export default defineComponent({
   name: "Login",
@@ -19,13 +21,13 @@ export default defineComponent({
     };
   },
   methods: {
-    createUser() {
+    async loginUser() {
       const payload = {
         username: this.username,
         password: this.password,
       };
-      console.log(payload);
-      this.$emit("loginUser", payload);
+      let login = await loginUser(payload);
+      authService.login(login.token);
       this.clearForm();
     },
     clearForm() {
@@ -64,7 +66,7 @@ export default defineComponent({
         </div>
       </template>
       <template v-slot:button>
-        <Button :btn-text="text" @click="createUser()"></Button>
+        <Button :btn-text="text" @click="loginUser()"></Button>
       </template>
     </UserForm>
   </div>

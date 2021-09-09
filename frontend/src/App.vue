@@ -27,12 +27,21 @@ export default defineComponent({
   --dark-cultured-white: #f9f9f9;
   --dark-light-salmon: #ffa978;
 }
+html {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--dark-eerie-black);
+}
+
 body {
   margin: 0;
 }
 a {
   text-decoration: none;
 }
+
 #app-vue {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

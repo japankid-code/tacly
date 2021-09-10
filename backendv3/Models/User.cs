@@ -15,5 +15,25 @@ namespace backendv3.Models
             UserName = create.UserName;
             Email = create.Email;
         }
+        public ICollection<User> Friends { get; set; }
+        public List<Game> Games { get; set; }
+    }
+
+    public class CreateUserRequest
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+
+    public class LoginUserRequest
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        public static implicit operator LoginUserRequest(CreateUserRequest model)
+        {
+            return new LoginUserRequest { UserName = model.UserName, Password = model.Password };
+        }
     }
 }

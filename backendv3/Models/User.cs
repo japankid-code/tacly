@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +16,10 @@ namespace backendv3.Models
             UserName = create.UserName;
             Email = create.Email;
         }
-        public ICollection<User> Friends { get; set; }
-        public List<Game> Games { get; set; }
+        // public ICollection<User> Friends { get; set; }
+        public ICollection<UserGame> UserGames { get; set; }
     }
+
 
     public class CreateUserRequest
     {

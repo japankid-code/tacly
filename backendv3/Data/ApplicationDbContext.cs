@@ -1,4 +1,5 @@
 ﻿using backendv3.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,5 +15,23 @@ namespace backendv3.Data
         }
 
         public DbSet<User> User { get; set; }
+        public DbSet<Game> Game { get; set; }
+        public DbSet<UserGame> UserGame { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserGame>()
+                .HasKey(ug => new { ug.GameId, ug.UserId });
+            modelBuilder.Entity<UserGame>()
+                .HasOne(ug => ug.User)
+                .WithMany(u => u.UserGames)
+                .HasForeignKey(ug => ug.UserId);
+            modelBuilder.Entity<UserGame>()
+                .HasOne(ug => ug.Game)
+                .WithMany(g => g.UserGames)
+                .HasForeignKey(ug => ug.GameId);
+
+        }
     }
 }

@@ -11,16 +11,17 @@ namespace backendv3.Models
 {
     public class UserGame
     {
+        public UserGame() { }
+        public UserGame(string gameId, string userId)
+        {
+            GameId = gameId;
+            UserId = userId;
+        }
 
-        // add foreign keys for game
         public string GameId { get; set; }
         public Game Game { get; set; }
-
-        // add foreign keys for players and winner
         public string UserId { get; set; }
-
         public User User { get; set; }
-
-
     }
+
 }

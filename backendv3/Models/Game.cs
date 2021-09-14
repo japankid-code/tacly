@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,7 +20,7 @@ namespace backendv3.Models
         public bool IsStarted { get; set; }
 
         // public MoveList MoveList { get; set; }
-
+        [JsonIgnore]
         public ICollection<UserGame> UserGames { get; set; }
 
     }
@@ -37,4 +38,9 @@ namespace backendv3.Models
     //    public List<string> boardState;
     //}
 
+    public class CreateGameRequest
+    {
+        public string userX { get; set; }
+        public string userO { get; set; }
+    }
 }

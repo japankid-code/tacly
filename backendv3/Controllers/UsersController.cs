@@ -29,7 +29,10 @@ namespace backendv3.Controllers
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
-            return await _dbContext.User.ToListAsync();
+            return await _dbContext.User
+                .Include(u => u.UserGames)
+                .ThenInclude(ug => ug.Game)
+                .ToListAsync();
         }
 
         [HttpGet("{id}")]

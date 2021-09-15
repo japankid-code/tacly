@@ -1,5 +1,6 @@
 ﻿using backendv3.Data;
 using backendv3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -34,7 +35,7 @@ namespace backendv3.Controllers
         {
             return await _dbContext.Game.FindAsync(id);
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Post(CreateGameRequest request)
         {
@@ -59,7 +60,7 @@ namespace backendv3.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok();
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(string id, Game model)
         {
@@ -72,7 +73,7 @@ namespace backendv3.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(string id)
         {

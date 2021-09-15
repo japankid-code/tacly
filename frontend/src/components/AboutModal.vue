@@ -42,14 +42,13 @@ export default {
 <style scoped lang="scss">
 .modal-backdrop {
   position: fixed;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 10;
 }
 
@@ -58,9 +57,13 @@ export default {
   color: var(--dark-eerie-black);
   box-shadow: 2px 2px 20px 1px;
   border-radius: 3px;
-  overflow-x: auto;
   display: flex;
   flex-direction: column;
+  width: 23rem;
+  height: auto;
+  max-height: 80vh;
+  max-width: 80vw;
+  align-self: center;
 }
 
 .modal-header,
@@ -98,8 +101,8 @@ export default {
 
 .btn-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 0.5rem;
+  right: 0.65rem;
   border: none;
   font-size: 20px;
   padding: 10px;
@@ -107,7 +110,6 @@ export default {
   font-weight: bold;
   color: var(--dark-maya-blue);
   background: transparent;
-  cursor: pointer;
 }
 
 .btn-blue {

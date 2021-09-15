@@ -1,5 +1,6 @@
 ﻿using backendv3.Data;
 using backendv3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -50,7 +51,7 @@ namespace backendv3.Controllers
             var request = new UserAuthController(_userManager, _configuration);
             return await request.Login(login);
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(string id, User model)
         {
@@ -66,7 +67,7 @@ namespace backendv3.Controllers
 
             return Ok();
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(string id)
         {

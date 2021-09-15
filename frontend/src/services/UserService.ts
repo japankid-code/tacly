@@ -1,7 +1,12 @@
+import auth from "./AuthService";
+
 export async function getAllUsers() {
   const response = await fetch("/api/users", {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth.getToken()}`,
+    },
   });
   return await response.json();
 }
@@ -9,7 +14,9 @@ export async function getAllUsers() {
 export async function createUser(data: any) {
   const response = await fetch(`/api/users`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(data),
   });
   return await response.json();

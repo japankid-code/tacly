@@ -3,8 +3,11 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "DisplayBoard",
-  props: ["numberOfUsers"],
+  props: ["numberOfGames", "numberOfUsers"],
   methods: {
+    getAllGames() {
+      this.$emit("getAllGames");
+    },
     getAllUsers() {
       this.$emit("getAllUsers");
     },
@@ -14,11 +17,16 @@ export default defineComponent({
 
 <template>
   <div class="display-board">
-    <h4>Users Created</h4>
+    <h4>Things Created</h4>
     <div class="number">
-      {{ numberOfUsers }}
+      games: {{ numberOfGames }}, users: {{ numberOfUsers }}
     </div>
     <div class="btn">
+      <button @click="getAllGames()" type="button" class="btn btn-warning">
+        Get all Games
+      </button>
+    </div>
+    <div class="button">
       <button @click="getAllUsers()" type="button" class="btn btn-warning">
         Get all Users
       </button>
@@ -26,9 +34,13 @@ export default defineComponent({
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .display-board {
   margin: 20px 0 0 0;
+  align-self: center;
+}
+
+button {
   align-self: center;
 }
 </style>

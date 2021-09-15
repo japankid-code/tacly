@@ -11,7 +11,7 @@ export default {
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>user index</th>
+          <th>user id</th>
           <th>username</th>
           <th>email</th>
           <th>password</th>
@@ -19,7 +19,7 @@ export default {
       </thead>
       <tbody>
         <tr v-for="(item, index) in users" :key="index">
-          <td>{{ index + 1 }}</td>
+          <td>{{ item.id }}</td>
           <td>{{ item.userName }}</td>
           <td>{{ item.email }}</td>
           <td>not telling</td>

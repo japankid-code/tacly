@@ -19,24 +19,35 @@ namespace backendv3.Models
         public bool IsComplete { get; set; }
         public bool IsStarted { get; set; }
 
-        // public MoveList MoveList { get; set; }
+        public MoveList MoveList { get; set; }
         [JsonIgnore]
         public ICollection<UserGame> UserGames { get; set; }
 
     }
 
-    //public class MoveList
-    //{
-    //    [Key]
-    //    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    //    public string MoveListId { get; set; }
+    public class MoveList
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string MoveListId { get; set; }
 
-    //    public string ToGameId;
-    //    [ForeignKey("ToGameId")]
-    //    public Game Game { get; set; }
-    //    public int moveNumber;
-    //    public List<string> boardState;
-    //}
+        public int moveNumber;
+
+        public string GameId;
+
+        public Game Game { get; set; }
+
+        public ICollection<BoardState> state;
+    }
+
+    public class BoardState
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string BoardStateId { get; set; }
+
+        public List<string> state;
+    }
 
     public class CreateGameRequest
     {

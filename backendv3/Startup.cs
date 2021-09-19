@@ -35,7 +35,7 @@ namespace backendv3
 
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseSqlServer(Environment.GetEnvironmentVariable("DefaultConnectionString") ??
                     Configuration.GetConnectionString("DefaultConnection")
                 ));
             services.AddSpaStaticFiles(configuration: options => { options.RootPath = "wwwroot"; });
@@ -107,7 +107,7 @@ namespace backendv3
             {
                 if (env.IsDevelopment())
                 {
-                    builder.UseProxyToSpaDevelopmentServer("http://localhost:8080");
+                    // builder.UseProxyToSpaDevelopmentServer("http://localhost:8080");
                 }
             });
         }

@@ -1,0 +1,19 @@
+version: "3.4"
+
+services:
+  WebSite:
+    image: app
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "0.0.0.0:8080:5001"
+    networks:
+      - my-network
+    environment:
+      - API_URL=localhost:5001
+
+networks:
+  my-network:
+    external: true

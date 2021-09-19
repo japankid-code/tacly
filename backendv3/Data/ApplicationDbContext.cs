@@ -32,6 +32,12 @@ namespace backendv3.Data
                 .WithMany(g => g.UserGames)
                 .HasForeignKey(ug => ug.GameId);
 
+            modelBuilder.Entity<MoveList>()
+                .HasKey(ml => ml.GameId);
+            modelBuilder.Entity<MoveList>()
+                .HasOne(ml => ml.Game)
+                .WithOne(g => g.MoveList);
+
         }
     }
 }

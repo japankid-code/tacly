@@ -15,17 +15,27 @@ namespace backendv3.Models
         public User()
         {
             UserGames = new List<UserGame>();
+            UserFriends = new List<UserFriend>();
+            FriendUsers= new List<UserFriend>();
         }
         public User(CreateUserRequest create)
         {
             UserName = create.UserName;
             Email = create.Email;
         }
-        // public ICollection<User> Friends { get; set; }
         [JsonIgnore]
         public ICollection<UserGame> UserGames { get; set; }
         [NotMapped]
         public IEnumerable<Game> Games => UserGames.Select(x => x.Game);
+        [JsonIgnore]
+        public ICollection<UserFriend> UserFriends { get; set; }
+        [JsonIgnore]
+        public ICollection<UserFriend> FriendUsers { get; set; }
+        [NotMapped]
+        public IEnumerable<User> Friends => UserFriends
+            .Select(uf => uf.Friend)
+            .Union(FriendUsers.Select(fu => fu.User));
+
     }
 
 

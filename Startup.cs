@@ -105,9 +105,11 @@ namespace backendv3
             app.UseSpaStaticFiles();
             app.UseSpa(configuration: builder =>
             {
+                builder.Options.SourcePath = "frontend";
                 if (env.IsDevelopment())
                 {
-                    builder.UseProxyToSpaDevelopmentServer("http://localhost:8080");
+                    // Launch development server for Vue.js
+                    builder.UseVueDevelopmentServer();
                 }
             });
         }

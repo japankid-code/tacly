@@ -1,7 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Navbar from "../components/Navbar.vue"; // @ is an alias to /src
-import AboutModal from "../components/AboutModal.vue";
 import CreateGame from "../components/CreateGame.vue";
 import DisplayBoard from "../components/DisplayBoard.vue";
 import GameTable from "../components/GameTable.vue";
@@ -15,7 +14,6 @@ export default defineComponent({
   name: "Home",
   components: {
     Navbar,
-    AboutModal,
     CreateGame,
     DisplayBoard,
     GameTable,
@@ -23,7 +21,6 @@ export default defineComponent({
   },
   data() {
     return {
-      isModalVisible: false,
       games: [],
       users: [],
       numberOfUsers: 0,
@@ -31,12 +28,6 @@ export default defineComponent({
     };
   },
   methods: {
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    },
     async getUsers() {
       const users = await getAllUsers();
       console.log(users);
@@ -62,19 +53,18 @@ export default defineComponent({
 
 <template>
   <div class="home">
-    <Navbar @open="showModal" />
-    <AboutModal v-show="isModalVisible" @close="closeModal" />
+    <Navbar />
     <template v-if="this.loggedIn()">
       <CreateGame @createGame="createGame($event)" />
-      <DisplayBoard
-        :numberOfUsers="numberOfUsers"
-        :numberOfGames="numberOfGames"
-        @getAllGames="getGames()"
-        @getAllUsers="getUsers()"
-      />
-      <UserTable v-show="users.length > 0" :users="users" />
-      <GameTable v-show="games.length > 0" :games="games" />
     </template>
+    <DisplayBoard
+      :numberOfUsers="numberOfUsers"
+      :numberOfGames="numberOfGames"
+      @getAllGames="getGames()"
+      @getAllUsers="getUsers()"
+    />
+    <UserTable v-show="users.length > 0" :users="users" />
+    <GameTable v-show="games.length > 0" :games="games" />
   </div>
 </template>
 

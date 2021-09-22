@@ -2,8 +2,18 @@
 import { defineComponent } from "vue";
 import authService from "../services/AuthService";
 
+import AboutModal from "../components/AboutModal.vue";
+
 export default defineComponent({
   name: "Navbar",
+  components: {
+    AboutModal,
+  },
+  data() {
+    return {
+      isModalVisible: false,
+    };
+  },
   methods: {
     open() {
       this.$emit("open");
@@ -15,22 +25,34 @@ export default defineComponent({
     logout() {
       authService.logout();
     },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
+    },
   },
 });
 </script>
 
 <template>
-  <div class="navbar">
-    <router-link to="/"><h1>tacly</h1></router-link>
-    <nav id="nav">
-      <router-link to="/">Home |</router-link>
-      <a type="button" class="about-btn" @click="open">About |</a>
-      <router-link v-if="!this.loggedIn()" to="/login">Log in |</router-link>
-      <router-link v-if="!this.loggedIn()" to="/signup">Sign up</router-link>
-      <router-link v-if="this.loggedIn()" to="/signup" @click="logout()"
-        >Log out</router-link
-      >
-    </nav>
+  <div>
+    <div class="navbar">
+      <router-link to="/"><h1>tacly</h1></router-link>
+      <nav id="nav">
+        <router-link to="/">Home |</router-link>
+        <a type="button" class="about-btn" @click="showModal()">About |</a>
+        <router-link v-if="!this.loggedIn()" to="/login">Log in |</router-link>
+        <router-link v-if="!this.loggedIn()" to="/signup">Sign up</router-link>
+        <router-link v-if="this.loggedIn()" to="/profile"
+          >Profile |</router-link
+        >
+        <router-link v-if="this.loggedIn()" to="/" @click="logout()">
+          Log out
+        </router-link>
+      </nav>
+    </div>
+    <AboutModal v-show="isModalVisible" @close="closeModal" />
   </div>
 </template>
 

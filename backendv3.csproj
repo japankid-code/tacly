@@ -8,6 +8,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>frontend\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    <SignAssembly>false</SignAssembly>
 	</PropertyGroup>
 
 	<ItemGroup>

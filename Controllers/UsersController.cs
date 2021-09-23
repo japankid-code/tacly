@@ -40,8 +40,8 @@ namespace backendv3.Controllers
                 .ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(string id)
+        [HttpGet("id/{id}")]
+        public async Task<ActionResult<User>> Get(Guid id)
         {
             return await _dbContext.User
                 .Include(u => u.UserGames)
@@ -50,7 +50,20 @@ namespace backendv3.Controllers
                 .ThenInclude(uf => uf.Friend)
                 .Include(u => u.FriendUsers)
                 .ThenInclude(uf => uf.User)
-                .FirstOrDefaultAsync(u => u.Id == id); ;
+                .FirstOrDefaultAsync(u => u.Id == id.ToString()); ;
+        }
+
+        [HttpGet("{username}")]
+        public async Task<ActionResult<User>> Get(string username)
+        {
+            return await _dbContext.User
+                .Include(u => u.UserGames)
+                .ThenInclude(ug => ug.Game)
+                .Include(u => u.UserFriends)
+                .ThenInclude(uf => uf.Friend)
+                .Include(u => u.FriendUsers)
+                .ThenInclude(uf => uf.User)
+                .FirstOrDefaultAsync(u => u.UserName == username); ;
         }
 
         [HttpPost]

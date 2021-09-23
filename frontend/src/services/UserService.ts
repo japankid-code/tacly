@@ -12,7 +12,19 @@ export async function getAllUsers() {
 }
 
 export async function getUserById(id: string) {
-  const response = await fetch(`/api/users/${id}`, {
+  const response = await fetch(`/api/users/id/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth.getToken()}`,
+    },
+  });
+  return await response.json();
+}
+
+export async function getUserByUsername(inputUsername: string) {
+  console.log(inputUsername);
+  const response = await fetch(`/api/users/${inputUsername}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -43,6 +55,7 @@ export async function loginUser(data: any) {
 }
 
 export async function addFriend(input: { userId: string; friendId: string }) {
+  console.log(input);
   const response = await fetch(`/api/users/${input.userId}/${input.friendId}`, {
     method: "POST",
     headers: {

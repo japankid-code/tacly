@@ -41,11 +41,17 @@ export default defineComponent({
       <router-link to="/"><h1>tacly</h1></router-link>
       <nav id="nav">
         <router-link to="/">Home |</router-link>
-        <a type="button" class="about-btn" @click="showModal()">About |</a>
+        <a
+          v-if="!this.loggedIn()"
+          type="button"
+          class="about-btn"
+          @click="showModal()"
+          >About |</a
+        >
         <router-link v-if="!this.loggedIn()" to="/login">Log in |</router-link>
         <router-link v-if="!this.loggedIn()" to="/signup">Sign up</router-link>
-        <router-link v-if="this.loggedIn()" to="/profile"
-          >Profile |</router-link
+        <router-link v-if="this.loggedIn()" to="/dashboard"
+          >Dashboard |</router-link
         >
         <router-link v-if="this.loggedIn()" to="/" @click="logout()">
           Log out

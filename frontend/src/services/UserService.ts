@@ -23,7 +23,6 @@ export async function getUserById(id: string) {
 }
 
 export async function getUserByUsername(inputUsername: string) {
-  console.log(inputUsername);
   const response = await fetch(`/api/users/${inputUsername}`, {
     method: "GET",
     headers: {
@@ -55,7 +54,6 @@ export async function loginUser(data: any) {
 }
 
 export async function addFriend(input: { userId: string; friendId: string }) {
-  console.log(input);
   const response = await fetch(`/api/users/${input.userId}/${input.friendId}`, {
     method: "POST",
     headers: {

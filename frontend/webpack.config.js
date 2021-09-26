@@ -6,4 +6,5 @@ export const devServer = {
   },
   compress: true,
   port: 5001,
+  https: false,
 };

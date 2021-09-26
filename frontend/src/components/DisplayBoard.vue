@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "DisplayBoard",
-  props: ["numberOfGames", "numberOfUsers"],
+  props: ["numberOfGames"],
   methods: {
     getAllGames() {
       this.$emit("getAllGames");
@@ -18,17 +18,10 @@ export default defineComponent({
 <template>
   <div class="display-board">
     <h4>Things Created</h4>
-    <div class="number">
-      games: {{ numberOfGames }}, users: {{ numberOfUsers }}
-    </div>
+    <div class="number">games: {{ numberOfGames }}</div>
     <div class="btn">
       <button @click="getAllGames()" type="button" class="btn btn-warning">
         Get all Games
-      </button>
-    </div>
-    <div class="button">
-      <button @click="getAllUsers()" type="button" class="btn btn-warning">
-        Get all Users
       </button>
     </div>
   </div>

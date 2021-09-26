@@ -21,15 +21,14 @@ export default defineComponent({
   },
   methods: {
     async friendAdder(username: string) {
-      console.log("username", username);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const friend: any = await getUserByUsername(username);
       const input = {
         userId: "45e33f90-2515-4e43-918f-bac7769465c1",
         friendId: friend.id,
       };
-      console.log(input);
-      addFriend(input);
+      let success = addFriend(input);
+      console.log("success", success);
     },
   },
 });
@@ -53,6 +52,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .add-friend-card {
+  align-self: flex-end;
   display: flex;
   justify-content: space-between;
   align-items: center;

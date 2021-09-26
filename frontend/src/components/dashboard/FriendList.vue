@@ -49,6 +49,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-items: flex-end;
   min-height: 21rem;
   .ui-card-title {
     margin: -0.5rem 0 0.5rem 0;
@@ -61,6 +62,9 @@ export default defineComponent({
     margin: 0.35rem 0;
     display: flex;
     justify-content: space-between;
+  }
+  .add-friend-card {
+    justify-self: end;
   }
 }
 .friend-card {

@@ -5,7 +5,7 @@ export default defineComponent({
   name: "Button",
   props: {
     btnText: { type: String, required: true, default: "🍣" },
-    buttonColor: { type: String, required: true, default: "btn-blue" },
+    buttonColor: { type: String, required: false, default: "btn-blue" },
   },
   data() {
     return {

@@ -26,8 +26,9 @@ export default defineComponent({
         username: this.username,
         password: this.password,
       };
-      let login = await loginUser(payload);
-      authService.login(login.token);
+      let response = await loginUser(payload);
+      authService.login(response.token);
+      this.$store.dispatch("addActiveUser", response.user);
       this.clearForm();
     },
     clearForm() {

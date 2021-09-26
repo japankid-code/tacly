@@ -13,7 +13,6 @@ export default defineComponent({
       this.$emit("signup");
     },
   },
-  props: { btnText: { type: String, required: true, default: "🍣" } },
   data() {
     return {};
   },

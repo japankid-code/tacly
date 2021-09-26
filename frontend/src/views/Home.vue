@@ -7,7 +7,6 @@ import GameTable from "../components/GameTable.vue";
 import UserTable from "../components/UserTable.vue";
 
 import { getAllGames, createGame } from "../services/GameService";
-import { getAllUsers } from "../services/UserService";
 import authService from "../services/AuthService";
 
 export default defineComponent({
@@ -23,22 +22,16 @@ export default defineComponent({
     return {
       games: [],
       users: [],
-      numberOfUsers: 0,
       numberOfGames: 0,
     };
   },
   methods: {
-    async getUsers() {
-      const users = await getAllUsers();
-      console.log(users);
-      this.users = users;
-      this.numberOfUsers = this.users.length;
-    },
     async getGames() {
       const games = await getAllGames();
       this.games = games;
       this.numberOfGames = this.games.length;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async createGame(data: any) {
       await createGame(data);
       this.getGames();
@@ -57,13 +50,8 @@ export default defineComponent({
     <template v-if="this.loggedIn()">
       <CreateGame @createGame="createGame($event)" />
     </template>
-    <DisplayBoard
-      :numberOfUsers="numberOfUsers"
-      :numberOfGames="numberOfGames"
-      @getAllGames="getGames()"
-      @getAllUsers="getUsers()"
-    />
-    <UserTable v-show="users.length > 0" :users="users" />
+    <UserTable />
+    <DisplayBoard :numberOfGames="numberOfGames" @getAllGames="getGames()" />
     <GameTable v-show="games.length > 0" :games="games" />
   </div>
 </template>

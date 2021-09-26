@@ -22,6 +22,7 @@ export default defineComponent({
     FriendList,
     PlayerStats,
   },
+
   props: {
     user: {},
     friends: [],

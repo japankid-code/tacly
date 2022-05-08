@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: "Modal",
+  name: "AboutModal",
   methods: {
     close() {
       this.$emit("close");
@@ -17,12 +17,11 @@ export default {
           <slot name="header">About Tacly</slot>
           <button type="button" class="btn-close" @click="close">x</button>
         </header>
-
         <section class="modal-body">
           <slot name="body">
             <p>
               Tacly is a multiplayer competitive tic tac toe game. Add your
-              friends and play tic tac toe!!
+              friends and play!!
             </p>
             <p>
               <a href="https://github.com/japankid-code/tacly">learn more.</a>

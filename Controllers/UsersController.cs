@@ -40,7 +40,7 @@ namespace backendv3.Controllers
                 .ToListAsync();
         }
 
-        [HttpGet("id/{id}")]
+        [HttpGet("id/{id:Guid}")]
         public async Task<ActionResult<User>> Get(Guid id)
         {
             return await _dbContext.User
@@ -50,7 +50,7 @@ namespace backendv3.Controllers
                 .ThenInclude(uf => uf.Friend)
                 .Include(u => u.FriendUsers)
                 .ThenInclude(uf => uf.User)
-                .FirstOrDefaultAsync(u => u.Id == id.ToString()); ;
+                .FirstOrDefaultAsync(u => u.Id == id); ;
         }
 
         [HttpGet("{username}")]
@@ -76,8 +76,8 @@ namespace backendv3.Controllers
             return await request.Login(login);
         }
         [Authorize]
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(string id, User model)
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult> Put(Guid id, User model)
         {
             var exists = await _dbContext.User.AnyAsync(f => f.Id == id);
             if (!exists)
@@ -92,8 +92,8 @@ namespace backendv3.Controllers
             return Ok();
         }
         [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteUser(string id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> DeleteUser(Guid id)
         {
             var user = await _dbContext.User.FindAsync(id);
             if (user == null)
@@ -107,8 +107,8 @@ namespace backendv3.Controllers
             return NoContent();
         }
         [Authorize]
-        [HttpPost("{id}/{friendId}")]
-        public async Task<ActionResult> Put(string id, string friendId, CreateUserFriendRequest model)
+        [HttpPost("{id:Guid}/{friendId:Guid}")]
+        public async Task<ActionResult> Put(Guid id, Guid friendId, CreateUserFriendRequest model)
         {
             var alreadyExists = await _dbContext.UserFriend.AnyAsync(f => f.FriendId == friendId);
             if (alreadyExists) return Ok("friend already added");
@@ -130,8 +130,8 @@ namespace backendv3.Controllers
             return Ok(addFriend);
         }
         [Authorize]
-        [HttpDelete("{id}/{friendId}")]
-        public async Task<ActionResult> DeleteFriend(string id, string friendId)
+        [HttpDelete("{id:Guid}/{friendId:Guid}")]
+        public async Task<ActionResult> DeleteFriend(Guid id, Guid friendId)
         {
 
             var userExists = await _dbContext.User.AnyAsync(u => u.Id == id);

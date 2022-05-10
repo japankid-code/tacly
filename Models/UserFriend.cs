@@ -16,15 +16,15 @@ namespace backendv3.Models
             FriendId = create.FriendId;
         }
 
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
-        public string FriendId { get; set; }
+        public Guid FriendId { get; set; }
         public User Friend { get; set; }
     }
 
     public class CreateUserFriendRequest
     {
-        public string UserId { get; set; }
-        public string FriendId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid FriendId { get; set; }
     }
 }

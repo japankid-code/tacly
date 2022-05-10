@@ -30,8 +30,8 @@ namespace backendv3.Controllers
             return await _dbContext.Game.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> Get(string id)
+        [HttpGet("{id:Guid}")]
+        public async Task<ActionResult<Game>> Get(Guid id)
         {
             return await _dbContext.Game.FindAsync(id);
         }
@@ -61,8 +61,8 @@ namespace backendv3.Controllers
             return Ok();
         }
         [Authorize]
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(string id, Game model)
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult> Put(Guid id, Game model)
         {
             var exists = await _dbContext.Game.AnyAsync(g => g.GameId == id);
             if (!exists)
@@ -74,8 +74,8 @@ namespace backendv3.Controllers
             return Ok();
         }
         [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteUser(string id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<ActionResult> DeleteUser(Guid id)
         {
             var game = await _dbContext.Game.FindAsync(id);
             if (game == null)

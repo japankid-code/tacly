@@ -8,46 +8,41 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace backendv3.Models
-{
-    public class User : IdentityUser
-    {
-        public User()
-        {
+namespace backendv3.Models {
+    public class ApplicationUser : IdentityUser<Guid> { }
+    public class User : ApplicationUser {
+        public User() {
             UserGames = new List<UserGame>();
             UserFriends = new List<UserFriend>();
-            FriendUsers= new List<UserFriend>();
         }
-        public User(CreateUserRequest create)
-        {
+
+        public User(CreateUserRequest create) {
             UserName = create.UserName;
             Email = create.Email;
         }
         [JsonIgnore]
-        public ICollection<UserGame> UserGames { get; set; }
+        public virtual List<UserGame> UserGames { get; set; }
         [NotMapped]
-        public IEnumerable<Game> Games => UserGames.Select(x => x.Game);
+        public virtual List<Game> Games { get; set; }
         [JsonIgnore]
-        public ICollection<UserFriend> UserFriends { get; set; }
+        public virtual List<UserFriend> UserFriends { get; set; }
         [JsonIgnore]
-        public ICollection<UserFriend> FriendUsers { get; set; }
+        public virtual List<UserFriend> FriendUsers { get; set; }
         [NotMapped]
-        public IEnumerable<User> Friends => UserFriends
+        public virtual List<User> Friends => UserFriends
             .Select(uf => uf.Friend)
-            .Union(FriendUsers.Select(fu => fu.User));
+            .Union(FriendUsers.Select(fu => fu.User)).ToList();
 
     }
 
 
-    public class CreateUserRequest
-    {
+    public class CreateUserRequest {
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
     }
 
-    public class LoginUserRequest
-    {
+    public class LoginUserRequest {
         public string UserName { get; set; }
         public string Password { get; set; }
 

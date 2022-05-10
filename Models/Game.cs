@@ -3,18 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace backendv3.Models
-{
+namespace backendv3.Models {
     public class Game
     {
         public Game() { }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string GameId { get; set; }
+        public Guid GameId { get; set; }
         public int Views { get; set; }
         public bool IsComplete { get; set; }
         public bool IsStarted { get; set; }
@@ -29,18 +26,18 @@ namespace backendv3.Models
     //{
     //    [Key]
     //    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    //    public string MoveListId { get; set; }
+    //    public Guid MoveListId { get; set; }
 
-    //    public string ToGameId;
+    //    public Guid ToGameId;
     //    [ForeignKey("ToGameId")]
     //    public Game Game { get; set; }
     //    public int moveNumber;
-    //    public List<string> boardState;
+    //    public List<Guid> boardState;
     //}
 
     public class CreateGameRequest
     {
-        public string userX { get; set; }
-        public string userO { get; set; }
+        public Guid userX { get; set; }
+        public Guid userO { get; set; }
     }
 }

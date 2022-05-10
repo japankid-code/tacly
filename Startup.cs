@@ -40,9 +40,9 @@ namespace backendv3
                 ));
             services.AddSpaStaticFiles(configuration: options => { options.RootPath = "wwwroot"; });
             // adding identity
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            // adding vue cors requests, allowing vue to make API requests to localhost:5001
+            // adding vue cors requests, allowing vue to make API requests to localhost:5001 during development when running from VSCode
             services.AddCors(options =>
             {
                 options.AddPolicy("VueCorsPolicy", builder =>

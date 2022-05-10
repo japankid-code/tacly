@@ -12,15 +12,15 @@ namespace backendv3.Models
     public class UserGame
     {
         public UserGame() { }
-        public UserGame(string gameId, string userId)
+        public UserGame(Guid gameId, Guid userId)
         {
             GameId = gameId;
             UserId = userId;
         }
 
-        public string GameId { get; set; }
+        public Guid GameId { get; set; }
         public Game Game { get; set; }
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; }
     }
 

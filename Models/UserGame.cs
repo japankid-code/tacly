@@ -1,27 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Data.Entity;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
-namespace backendv3.Models
-{
-    public class UserGame
-    {
+namespace backendv3.Models {
+    public class UserGame {
         public UserGame() { }
-        public UserGame(Guid gameId, Guid userId)
-        {
+        public UserGame(Guid gameId, Guid userId) {
             GameId = gameId;
             UserId = userId;
         }
 
+        public Guid UserGameId { get; set; }
         public Guid GameId { get; set; }
-        public Game Game { get; set; }
+        [ForeignKey(nameof(GameId))]
+        public virtual Game Game { get; set; }
+
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public virtual User User { get; set; }
     }
 
 }

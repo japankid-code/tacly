@@ -17,32 +17,18 @@ namespace backendv3.Data {
         public DbSet<UserGame> UserGame { get; set; }
         public DbSet<UserFriend> UserFriend { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(ModelBuilder modelBuilder){
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserGame>()
-                .HasKey(ug => new { ug.GameId, ug.UserId });
-            modelBuilder.Entity<UserGame>()
-                .HasOne(ug => ug.User)
-                .WithMany(u => u.UserGames)
-                .HasForeignKey(ug => ug.UserId);
-            modelBuilder.Entity<UserGame>()
-                .HasOne(ug => ug.Game)
-                .WithMany(g => g.UserGames)
-                .HasForeignKey(ug => ug.GameId);
 
-            modelBuilder.Entity<UserFriend>()
-                .HasKey(uf => new { uf.FriendId, uf.UserId });
-            modelBuilder.Entity<UserFriend>()
-                .HasOne(uf => uf.User)
-                .WithMany(u => u.UserFriends)
-                .HasForeignKey(uf => uf.UserId).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<User>().Property(s => s.CreatedDate).HasDefaultValueSql("GETDATE()");
+            modelBuilder.Entity<UserFriend>().Property(s => s.CreatedDate).HasDefaultValueSql("GETDATE()");
+            modelBuilder.Entity<Game>().Property(s => s.CreatedDate).HasDefaultValueSql("GETDATE()");
+
             modelBuilder.Entity<UserFriend>()
                 .HasOne(uf => uf.Friend)
-                .WithMany(u => u.FriendUsers)
+                .WithMany(u => u.UserFriends)
                 .HasForeignKey(uf => uf.FriendId).OnDelete(DeleteBehavior.NoAction);
-
         }
     }
 }

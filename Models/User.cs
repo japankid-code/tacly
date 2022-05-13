@@ -1,37 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace backendv3.Models {
     public class ApplicationUser : IdentityUser<Guid> { }
     public class User : ApplicationUser {
-        public User() {
-            UserGames = new List<UserGame>();
-            UserFriends = new List<UserFriend>();
-        }
+        public User() { }
 
         public User(CreateUserRequest create) {
             UserName = create.UserName;
             Email = create.Email;
         }
-        [JsonIgnore]
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedDate { get; set; }
         public virtual List<UserGame> UserGames { get; set; }
-        [NotMapped]
-        public virtual List<Game> Games { get; set; }
-        [JsonIgnore]
         public virtual List<UserFriend> UserFriends { get; set; }
-        [JsonIgnore]
-        public virtual List<UserFriend> FriendUsers { get; set; }
-        [NotMapped]
-        public virtual List<User> Friends => UserFriends
-            .Select(uf => uf.Friend)
-            .Union(FriendUsers.Select(fu => fu.User)).ToList();
+        public virtual IEnumerable<User> Friends => UserFriends.Select(uf => uf.Friend);
 
     }
 

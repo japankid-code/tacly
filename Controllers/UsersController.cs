@@ -1,5 +1,7 @@
 ﻿using backendv3.Data;
+using backendv3.Data.Repositories;
 using backendv3.Models;
+using backendv3.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,82 +21,58 @@ namespace backendv3.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _dbContext;
         private readonly IConfiguration _configuration;
+        private readonly IUserRepo _userRepo;
+        private readonly IUserService _userService;
 
-        public UsersController(ApplicationDbContext dbContext, UserManager<User> userManager, IConfiguration configuration)
-        {
+        public UsersController(ApplicationDbContext dbContext, UserManager<User> userManager, IConfiguration configuration, IUserRepo userRepo, IUserService userService) {
             _userManager = userManager;
             _dbContext = dbContext;
             _configuration = configuration;
+            _userRepo = userRepo;
+            _userService = userService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<User>>> Get()
-        {
-            return await _dbContext.User
-                .Include(u => u.UserGames)
-                .ThenInclude(ug => ug.Game)
-                .Include(u => u.UserFriends)
-                .ThenInclude(uf => uf.Friend)
-                .Include(u => u.FriendUsers)
-                .ThenInclude(uf => uf.User)
-                .ToListAsync();
+        public ActionResult<List<User>> GetAllUsers() {
+            try {
+                return Ok(_userService.GetAllUsers());
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpGet("id/{id:Guid}")]
-        public async Task<ActionResult<User>> Get(Guid id)
-        {
-            return await _dbContext.User
-                .Include(u => u.UserGames)
-                .ThenInclude(ug => ug.Game)
-                .Include(u => u.UserFriends)
-                .ThenInclude(uf => uf.Friend)
-                .Include(u => u.FriendUsers)
-                .ThenInclude(uf => uf.User)
-                .FirstOrDefaultAsync(u => u.Id == id); ;
-        }
-
-        [HttpGet("{username}")]
-        public async Task<ActionResult<User>> Get(string username)
-        {
-            return await _dbContext.User
-                .Include(u => u.UserGames)
-                .ThenInclude(ug => ug.Game)
-                .Include(u => u.UserFriends)
-                .ThenInclude(uf => uf.Friend)
-                .Include(u => u.FriendUsers)
-                .ThenInclude(uf => uf.User)
-                .FirstOrDefaultAsync(u => u.UserName == username); ;
+        [HttpGet("{userId:Guid}")]
+        public ActionResult<User> Get(Guid userId) {
+            try {
+                return _userService.GetUserById(userId);
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateUserRequest model)
-        {
-            var user = new User(model);
-            await _userManager.CreateAsync(user, model.Password);
-            LoginUserRequest login = model;
-            var request = new UserAuthController(_userManager, _configuration);
-            return await request.Login(login);
-        }
-        [Authorize]
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> Put(Guid id, User model)
-        {
-            var exists = await _dbContext.User.AnyAsync(f => f.Id == id);
-            if (!exists)
-            {
-                return NotFound();
+        public async Task<IActionResult> Post(CreateUserRequest model) {
+            try {
+                return Ok(await _userService.CreateAndLoginUserAsync(model));
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
             }
-
-            _dbContext.User.Update(model);
-
-            await _dbContext.SaveChangesAsync();
-
-            return Ok();
         }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<ActionResult<User>> UpdateUserAsync(User user) {
+            try {
+                await _userService.UpdateUserAsync(user);
+                return Ok();
+            } catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [Authorize]
         [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult> DeleteUser(Guid id)
-        {
+        public async Task<ActionResult> DeleteUser(Guid id) {
             var user = await _dbContext.User.FindAsync(id);
             if (user == null)
             {
@@ -106,10 +84,10 @@ namespace backendv3.Controllers
 
             return NoContent();
         }
+
         [Authorize]
         [HttpPost("{id:Guid}/{friendId:Guid}")]
-        public async Task<ActionResult> Put(Guid id, Guid friendId, CreateUserFriendRequest model)
-        {
+        public async Task<ActionResult> Put(Guid id, Guid friendId, CreateUserFriendRequest model) {
             var alreadyExists = await _dbContext.UserFriend.AnyAsync(f => f.FriendId == friendId);
             if (alreadyExists) return Ok("friend already added");
 
@@ -129,10 +107,10 @@ namespace backendv3.Controllers
 
             return Ok(addFriend);
         }
+
         [Authorize]
         [HttpDelete("{id:Guid}/{friendId:Guid}")]
-        public async Task<ActionResult> DeleteFriend(Guid id, Guid friendId)
-        {
+        public async Task<ActionResult> DeleteFriend(Guid id, Guid friendId) {
 
             var userExists = await _dbContext.User.AnyAsync(u => u.Id == id);
             if (!userExists) return NotFound();

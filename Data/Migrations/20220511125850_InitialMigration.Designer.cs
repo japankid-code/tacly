@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backendv3.Data;
 
-namespace backendv3.Migrations
+namespace backendv3.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220510001244_Migration05")]
-    partial class Migration05
+    [Migration("20220511125850_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -228,6 +228,11 @@ namespace backendv3.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<bool>("IsComplete")
                         .HasColumnType("bit");
 
@@ -244,13 +249,24 @@ namespace backendv3.Migrations
 
             modelBuilder.Entity("backendv3.Models.UserFriend", b =>
                 {
+                    b.Property<Guid>("UserFriendId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
                     b.Property<Guid>("FriendId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("FriendId", "UserId");
+                    b.HasKey("UserFriendId");
+
+                    b.HasIndex("FriendId");
 
                     b.HasIndex("UserId");
 
@@ -259,13 +275,19 @@ namespace backendv3.Migrations
 
             modelBuilder.Entity("backendv3.Models.UserGame", b =>
                 {
+                    b.Property<Guid>("UserGameId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("GameId", "UserId");
+                    b.HasKey("UserGameId");
+
+                    b.HasIndex("GameId");
 
                     b.HasIndex("UserId");
 
@@ -275,6 +297,16 @@ namespace backendv3.Migrations
             modelBuilder.Entity("backendv3.Models.User", b =>
                 {
                     b.HasBaseType("backendv3.Models.ApplicationUser");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("UserId");
 
                     b.HasDiscriminator().HasValue("User");
                 });
@@ -333,15 +365,15 @@ namespace backendv3.Migrations
             modelBuilder.Entity("backendv3.Models.UserFriend", b =>
                 {
                     b.HasOne("backendv3.Models.User", "Friend")
-                        .WithMany("FriendUsers")
+                        .WithMany("UserFriends")
                         .HasForeignKey("FriendId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("backendv3.Models.User", "User")
-                        .WithMany("UserFriends")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Friend");
@@ -368,6 +400,13 @@ namespace backendv3.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("backendv3.Models.User", b =>
+                {
+                    b.HasOne("backendv3.Models.User", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("backendv3.Models.Game", b =>
                 {
                     b.Navigation("UserGames");
@@ -375,7 +414,7 @@ namespace backendv3.Migrations
 
             modelBuilder.Entity("backendv3.Models.User", b =>
                 {
-                    b.Navigation("FriendUsers");
+                    b.Navigation("Friends");
 
                     b.Navigation("UserFriends");
 

@@ -42,20 +42,20 @@ namespace backendv3.Controllers
             var game = new Game();
             await _dbContext.Game.AddAsync(game);
 
-            var playerX = new UserGame(game.GameId, request.userX);
-            await _dbContext.UserGame.AddAsync(playerX);
-            var existsX = await _dbContext.User.FirstOrDefaultAsync(f => f.Id == request.userX);
-            existsX.UserGames.Add(playerX);
+            //var playerX = new UserGame(game.GameId, request.userX);
+            //await _dbContext.UserGame.AddAsync(playerX);
+            //var existsX = await _dbContext.User.FirstOrDefaultAsync(f => f.Id == request.userX);
+            //existsX.UserGames.Add(playerX);
 
-            var playerO = new UserGame(game.GameId, request.userO);
-            await _dbContext.UserGame.AddAsync(playerO);
-            var existsO = await _dbContext.User.FirstOrDefaultAsync(f => f.Id == request.userO);
-            existsO.UserGames.Add(playerO);
+            //var playerO = new UserGame(game.GameId, request.userO);
+            //await _dbContext.UserGame.AddAsync(playerO);
+            //var existsO = await _dbContext.User.FirstOrDefaultAsync(f => f.Id == request.userO);
+            //existsO.UserGames.Add(playerO);
 
-            if (existsX == null || existsO == null)
-            {
-                return NotFound();
-            }
+            //if (existsX == null || existsO == null)
+            //{
+            //    return NotFound();
+            //}
 
             await _dbContext.SaveChangesAsync();
             return Ok();

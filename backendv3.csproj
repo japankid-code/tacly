@@ -28,9 +28,84 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Data\obj\**" />
+    <Compile Remove="frontend\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Data\obj\**" />
+    <Content Remove="frontend\**" />
+    <EmbeddedResource Remove="Data\obj\**" />
+    <EmbeddedResource Remove="frontend\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Data\obj\**" />
+    <None Remove="frontend\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="frontend\.gitignore" />
+    <None Remove="frontend\babel.config.js" />
+    <None Remove="frontend\package-lock.json" />
+    <None Remove="frontend\package.json" />
+    <None Remove="frontend\public\favicon.ico" />
+    <None Remove="frontend\public\img\icons\android-chrome-192x192.png" />
+    <None Remove="frontend\public\img\icons\android-chrome-512x512.png" />
+    <None Remove="frontend\public\img\icons\android-chrome-maskable-192x192.png" />
+    <None Remove="frontend\public\img\icons\android-chrome-maskable-512x512.png" />
+    <None Remove="frontend\public\img\icons\apple-touch-icon-120x120.png" />
+    <None Remove="frontend\public\img\icons\apple-touch-icon-152x152.png" />
+    <None Remove="frontend\public\img\icons\apple-touch-icon-180x180.png" />
+    <None Remove="frontend\public\img\icons\apple-touch-icon-60x60.png" />
+    <None Remove="frontend\public\img\icons\apple-touch-icon-76x76.png" />
+    <None Remove="frontend\public\img\icons\apple-touch-icon.png" />
+    <None Remove="frontend\public\img\icons\favicon-16x16.png" />
+    <None Remove="frontend\public\img\icons\favicon-32x32.png" />
+    <None Remove="frontend\public\img\icons\msapplication-icon-144x144.png" />
+    <None Remove="frontend\public\img\icons\mstile-150x150.png" />
+    <None Remove="frontend\public\img\icons\safari-pinned-tab.svg" />
+    <None Remove="frontend\public\index.html" />
+    <None Remove="frontend\public\robots.txt" />
+    <None Remove="frontend\README.md" />
+    <None Remove="frontend\src\App.vue" />
+    <None Remove="frontend\src\assets\logo.png" />
+    <None Remove="frontend\src\components\AboutModal.vue" />
+    <None Remove="frontend\src\components\Button.vue" />
+    <None Remove="frontend\src\components\CreateGame.vue" />
+    <None Remove="frontend\src\components\dashboard\AddFriend.vue" />
+    <None Remove="frontend\src\components\dashboard\ChallengeCard.vue" />
+    <None Remove="frontend\src\components\dashboard\CurrentGames.vue" />
+    <None Remove="frontend\src\components\dashboard\FriendList.vue" />
+    <None Remove="frontend\src\components\dashboard\PlayerStats.vue" />
+    <None Remove="frontend\src\components\DisplayBoard.vue" />
+    <None Remove="frontend\src\components\GameTable.vue" />
+    <None Remove="frontend\src\components\Navbar.vue" />
+    <None Remove="frontend\src\components\UserForm.vue" />
+    <None Remove="frontend\src\components\UserTable.vue" />
+    <None Remove="frontend\src\main.ts" />
+    <None Remove="frontend\src\registerServiceWorker.ts" />
+    <None Remove="frontend\src\router\index.ts" />
+    <None Remove="frontend\src\services\AuthService.ts" />
+    <None Remove="frontend\src\services\GameService.ts" />
+    <None Remove="frontend\src\services\UserService.ts" />
+    <None Remove="frontend\src\shims-vue.d.ts" />
+    <None Remove="frontend\src\shims-vuex.d.ts" />
+    <None Remove="frontend\src\store\index.ts" />
+    <None Remove="frontend\src\views\Dashboard.vue" />
+    <None Remove="frontend\src\views\Home.vue" />
+    <None Remove="frontend\src\views\Login.vue" />
+    <None Remove="frontend\src\views\Signup.vue" />
+    <None Remove="frontend\tests\e2e\plugins\index.js" />
+    <None Remove="frontend\tests\e2e\specs\test.js" />
+    <None Remove="frontend\tests\e2e\support\commands.js" />
+    <None Remove="frontend\tests\e2e\support\index.js" />
+    <None Remove="frontend\tests\unit\example.spec.js" />
+    <None Remove="frontend\tests\unit\example.spec.js.map" />
+    <None Remove="frontend\tests\unit\example.spec.ts" />
+    <None Remove="frontend\tsconfig.json" />
+    <None Remove="frontend\webpack.config.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

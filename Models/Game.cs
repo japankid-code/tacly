@@ -12,13 +12,14 @@ namespace backendv3.Models {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid GameId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedDate { get; set; }
         public int Views { get; set; }
         public bool IsComplete { get; set; }
         public bool IsStarted { get; set; }
 
         // public MoveList MoveList { get; set; }
-        [JsonIgnore]
-        public ICollection<UserGame> UserGames { get; set; }
+        public virtual List<UserGame> UserGames { get; set; }
 
     }
 

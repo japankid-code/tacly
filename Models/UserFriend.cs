@@ -1,29 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace backendv3.Models
-{
-    public class UserFriend
-    {
+namespace backendv3.Models {
+    public class UserFriend {
         public UserFriend() { }
-        public UserFriend(CreateUserFriendRequest create)
-        {
+        public UserFriend(CreateUserFriendRequest create) {
             UserId = create.UserId;
             FriendId = create.FriendId;
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid UserFriendId { get; set; }
+
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        
+        [ForeignKey(nameof(UserId))]
+        public virtual User User { get; set; }
+        public DateTime CreatedDate { get; set; }
         public Guid FriendId { get; set; }
-        public User Friend { get; set; }
+        [ForeignKey(nameof(FriendId))]
+        public virtual User Friend { get; set; }
     }
 
-    public class CreateUserFriendRequest
-    {
+    public class CreateUserFriendRequest {
         public Guid UserId { get; set; }
         public Guid FriendId { get; set; }
     }

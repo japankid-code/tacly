@@ -7,6 +7,7 @@ import authService from "../services/AuthService";
 import { loginUser } from "../services/UserService";
 
 export default defineComponent({
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Login",
   components: {
     UserForm,

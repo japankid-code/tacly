@@ -10,6 +10,7 @@ import { getAllGames, createGame } from "../services/GameService";
 import authService from "../services/AuthService";
 
 export default defineComponent({
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Home",
   components: {
     Navbar,
@@ -47,7 +48,7 @@ export default defineComponent({
 <template>
   <div class="home">
     <Navbar />
-    <template v-if="this.loggedIn()">
+    <template v-if="loggedIn()">
       <CreateGame @createGame="createGame($event)" />
     </template>
     <UserTable />

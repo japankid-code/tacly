@@ -1,3 +1,24 @@
+
+
+<template>
+  <div>
+    <div class="navbar">
+      <router-link to="/"><h1>tacly</h1></router-link>
+      <nav id="nav">
+        <router-link to="/">Home |</router-link>
+        <AboutModal />|
+        <router-link v-if="!loggedIn()" to="/login">Log in |</router-link>
+        <router-link v-if="!loggedIn()" to="/signup">Sign up</router-link>
+        <router-link v-if="loggedIn()" to="/dashboard"
+          >Dashboard |</router-link
+        >
+        <router-link v-if="loggedIn()" to="/" @click="logout()">
+          Log out
+        </router-link>
+      </nav>
+    </div>
+  </div>
+</template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import authService from "../services/AuthService";
@@ -5,14 +26,15 @@ import authService from "../services/AuthService";
 import AboutModal from "../components/AboutModal.vue";
 
 export default defineComponent({
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Navbar",
   components: {
     AboutModal,
   },
   data() {
     return {
-      isModalVisible: false,
-    };
+
+    }
   },
   methods: {
     open() {
@@ -25,43 +47,9 @@ export default defineComponent({
     logout() {
       authService.logout();
     },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    },
   },
 });
 </script>
-
-<template>
-  <div>
-    <div class="navbar">
-      <router-link to="/"><h1>tacly</h1></router-link>
-      <nav id="nav">
-        <router-link to="/">Home |</router-link>
-        <a
-          v-if="!this.loggedIn()"
-          type="button"
-          class="about-btn"
-          @click="showModal()"
-          >About |</a
-        >
-        <router-link v-if="!this.loggedIn()" to="/login">Log in |</router-link>
-        <router-link v-if="!this.loggedIn()" to="/signup">Sign up</router-link>
-        <router-link v-if="this.loggedIn()" to="/dashboard"
-          >Dashboard |</router-link
-        >
-        <router-link v-if="this.loggedIn()" to="/" @click="logout()">
-          Log out
-        </router-link>
-      </nav>
-    </div>
-    <AboutModal v-show="isModalVisible" @close="closeModal" />
-  </div>
-</template>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .navbar {
@@ -81,20 +69,20 @@ export default defineComponent({
     color: var(--dark-eerie-black);
     text-decoration: none;
   }
-  .about-btn {
-    color: var(--dark-eerie-black);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  #nav {
-    padding: 0 1rem 0 0;
-    color: var(--dark-eerie-black);
-    a {
-      padding: 0.25rem;
-      font-weight: bold;
-      color: var(--dark-eerie-black);
-    }
-  }
+  // .about-btn {
+  //   color: var(--dark-eerie-black);
+  //   background: transparent;
+  //   border: none;
+  //   cursor: pointer;
+  // }
+  // #nav {
+  //   padding: 0 1rem 0 0;
+  //   color: var(--dark-eerie-black);
+  //   a {
+  //     padding: 0.25rem;
+  //     font-weight: bold;
+  //     color: var(--dark-eerie-black);
+  //   }
+  // }
 }
 </style>

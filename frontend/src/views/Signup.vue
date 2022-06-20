@@ -1,49 +1,3 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-
-import UserForm from "../components/UserForm.vue";
-import Button from "../components/Button.vue";
-import { createUser } from "../services/UserService";
-import authService from "../services/AuthService";
-
-export default defineComponent({
-  name: "Signup",
-  components: {
-    UserForm,
-    Button,
-  },
-
-  props: {},
-  data() {
-    return {
-      text: "sign up",
-      username: "",
-      email: "",
-      password: "",
-      confirmPass: "",
-    };
-  },
-  methods: {
-    async createNewUser() {
-      const payload = {
-        UserName: this.username,
-        Email: this.email,
-        Password: this.password,
-      };
-      let newUser = await createUser(payload);
-      authService.login(newUser.token);
-      this.clearForm();
-    },
-    clearForm() {
-      this.username = "";
-      this.email = "";
-      this.password = "";
-      this.confirmPass = "";
-    },
-  },
-});
-</script>
-
 <template>
   <div class="sign-up">
     <router-link to="/"><h1>tacly</h1></router-link>
@@ -100,6 +54,52 @@ export default defineComponent({
     </UserForm>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+
+import UserForm from "../components/UserForm.vue";
+import Button from "../components/Button.vue";
+import { createUser } from "../services/UserService";
+import authService from "../services/AuthService";
+
+export default defineComponent({
+  name: "SignupView",
+  components: {
+    UserForm,
+    Button,
+  },
+
+  props: {},
+  data() {
+    return {
+      text: "sign up",
+      username: "",
+      email: "",
+      password: "",
+      confirmPass: "",
+    };
+  },
+  methods: {
+    async createNewUser() {
+      const payload = {
+        UserName: this.username,
+        Email: this.email,
+        Password: this.password,
+      };
+      let newUser = await createUser(payload);
+      authService.login(newUser.token);
+      this.clearForm();
+    },
+    clearForm() {
+      this.username = "";
+      this.email = "";
+      this.password = "";
+      this.confirmPass = "";
+    },
+  },
+});
+</script>
 
 <style scoped lang="scss">
 .sign-up {

@@ -1,48 +1,37 @@
 <template>
-  <v-dialog width="550">
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn icon flat v-bind="attrs" v-on="on" :ripple="false">
-        <v-icon> mdi-information </v-icon>
+  <v-dialog v-model="showDialog" width="550">
+    <template v-slot:activator="{ isActive }">
+      <v-btn :ripple="false" icon flat v-bind="isActive" @click="showDialog = true">
+        <v-icon class=""> mdi-information </v-icon>
       </v-btn>
     </template>
     
-    <v-card color="blue lighten-5">
+    <v-card>
       <v-card-title>
-        <span class="headline">About</span>
+        <span>About</span>
       </v-card-title>
-      <v-card-text>
-        <p>Tacly is a multiplayer competitive tic tac toe game. Add your friends and play!!</p>
-        <p><a href="https://github.com/japankid-code/tacly">learn more.</a></p>
+      <v-card-text class="text-center">
+        Tacly is a multiplayer competitive tic tac toe game. Add your friends and play!!
       </v-card-text>
       <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="green darken-1" text @click="close">Close</v-btn>
+        <v-spacer />
+        <v-btn elevation="2" color="green darken-1" href="https://github.com/japankid-code/tacly">learn more</v-btn>
+        <v-btn dark elevation="2" color="green darken-1" text @click="showDialog = false">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "AboutModal",
   data () {
     return {
-      dialog: false,
+      showDialog: false,
     }
-  },
-  methods: {
-    close() {
-      this.$emit("close");
-    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.v-btn {
-  color: var(--dark-eerie-black);
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer !important;
-}
 </style>

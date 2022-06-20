@@ -1,5 +1,6 @@
 using backendv3.Data;
 using backendv3.Models;
+using backendv3.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,6 +55,11 @@ namespace backendv3
                     .WithOrigins("https://localhost:5001");
                 });
             });
+
+            services.Scan(scan => 
+                scan.FromCallingAssembly()                    
+                    .AddClasses()
+                    .AsMatchingInterface());
             // add JWT auth configs
             services.AddAuthentication(options =>
             {

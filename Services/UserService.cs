@@ -28,6 +28,7 @@ namespace backendv3.Services {
         public async Task<object> CreateAndLoginUserAsync(CreateUserRequest model) {
             var user = new User(model);
             await _userManager.CreateAsync(user, model.Password);
+            _userRepo.Save();
             LoginUserRequest login = model;
             return await LoginUserAsync(login);
         }

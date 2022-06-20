@@ -45,7 +45,7 @@ export async function createUser(data: any) {
 }
 
 export async function loginUser(data: any) {
-  const response = await fetch(`/api/userauth/login`, {
+  const response = await fetch(`/api/user/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),

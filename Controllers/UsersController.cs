@@ -51,7 +51,19 @@ namespace backendv3.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateUserRequest model) {
+        [Route("login")]
+        public async Task<IActionResult> LoginUser([FromBody] LoginUserRequest model) {
+            try {
+                return Ok(await _userService.LoginUserAsync(model));
+            } catch (UnauthorizedAccessException ex) {
+                return Unauthorized(ex.Message);
+            } catch (Exception ex) { 
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(CreateUserRequest model) {
             try {
                 return Ok(await _userService.CreateAndLoginUserAsync(model));
             } catch (Exception ex) {
@@ -87,7 +99,7 @@ namespace backendv3.Controllers
 
         [Authorize]
         [HttpPost("{id:Guid}/{friendId:Guid}")]
-        public async Task<ActionResult> Put(Guid id, Guid friendId, CreateUserFriendRequest model) {
+        public async Task<ActionResult> AddFriend(Guid id, Guid friendId, CreateUserFriendRequest model) {
             var alreadyExists = await _dbContext.UserFriend.AnyAsync(f => f.FriendId == friendId);
             if (alreadyExists) return Ok("friend already added");
 

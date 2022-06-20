@@ -1,12 +1,18 @@
 ﻿using backendv3.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace backendv3.Data.Repositories {
-    public class UserRepo : IUserRepo, IDisposable {
+    public class UserRepo : System.Data.Entity.DbSet<User>, IUserRepo, IDisposable {
         private ApplicationDbContext _context;
 
+        public void Save() => _context.SaveChanges();
 
         public UserRepo(ApplicationDbContext context) {
             _context = context;
@@ -26,6 +32,15 @@ namespace backendv3.Data.Repositories {
 
         #region disposer
         private bool disposedValue;
+
+        public ObservableCollection<User> Local => throw new NotImplementedException();
+
+        public Type ElementType => throw new NotImplementedException();
+
+        public Expression Expression => throw new NotImplementedException();
+
+        public IQueryProvider Provider => throw new NotImplementedException();
+
         protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
                 if (disposing) {
